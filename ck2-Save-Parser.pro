@@ -9,7 +9,8 @@ TEMPLATE = app
 SOURCES +=  tst_parser.cpp
 
 HEADERS += \
-    ck2Parser.h
+    abstracts.h \
+    ortner.h
 
 DISTFILES += \
     traits.csv

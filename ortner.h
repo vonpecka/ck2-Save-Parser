@@ -9,7 +9,8 @@
 	#include <fstream>
 	#include <string>
 	#include <vector>
-#include <iostream>
+    #include <iostream>
+    #include <abstracts.h>
 #endif
 
 namespace ck2
@@ -75,55 +76,6 @@ namespace ck2
 		return r;
 	}
 
-	//
-	// Pair of two objects of type F and S
-	//
-	template<typename F, typename S>
-	struct Pair
-	{
-		F first;
-		S second;
-
-		Pair()
-		{
-
-		}
-
-		Pair(F f, S s) :
-			first(f), second(s)
-		{
-
-		}
-	};
-
-	//
-	// A List of Pairs
-	//
-	template<typename F, typename S>
-	struct Dictionary
-	{
-		virtual S* at(F val)
-		{
-			for (int i = 0; i < data.size(); i++)
-				if (val == data.at(i).first)
-					return &data.at(i).second;
-
-			return nullptr;
-		}
-
-		virtual void push(const Pair<F, S> &val)
-		{
-			data.push_back(val);
-		}
-
-		virtual unsigned int size() const
-		{
-			return data.size();
-		}
-
-	protected:
-		std::vector< Pair<F, S> > data;
-	};
 
 	// 
 	// File object for reading files at a given directory

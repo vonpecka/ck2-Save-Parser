@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <ck2Parser.h>
+#include <ortner.h>
 
 class ParserTest : public QObject
 {
