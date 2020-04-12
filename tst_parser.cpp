@@ -1,13 +1,13 @@
 #include <QtTest>
 #include <ck2Parser.h>
 
-class Parser : public QObject
+class ParserTest : public QObject
 {
     Q_OBJECT
 
 public:
-    Parser();
-    ~Parser();
+    ParserTest();
+    ~ParserTest();
 
 private slots:
     void test_characterName();
@@ -17,17 +17,17 @@ private slots:
 
 };
 
-Parser::Parser()
+ParserTest::ParserTest()
 {
 
 }
 
-Parser::~Parser()
+ParserTest::~ParserTest()
 {
 
 }
 
-void Parser::test_characterName()
+void ParserTest::test_characterName()
 {
     ck2::File file("Derby775_07_18.ck2");
     ck2::SaveFile save(file);
@@ -35,7 +35,7 @@ void Parser::test_characterName()
     QCOMPARE(player.name(),std::string("Harthgate"));
 }
 
-void Parser::test_structAttributes()
+void ParserTest::test_structAttributes()
 {
     ck2::Attributes attrib("2 6 9 5 8");
     QCOMPARE(int(attrib.diplomacy()), 2);
@@ -45,7 +45,7 @@ void Parser::test_structAttributes()
     QCOMPARE(int(attrib.learning()), 8);
 }
 
-void Parser::test_characterAttributes()
+void ParserTest::test_characterAttributes()
 {
     ck2::File file("Derby775_07_18.ck2");
     ck2::SaveFile save(file);
@@ -58,7 +58,7 @@ void Parser::test_characterAttributes()
     QCOMPARE(attrib.learning(), player.attributes().learning());
 }
 
-void Parser::test_characterSpouse()
+void ParserTest::test_characterSpouse()
 {
     ck2::File file("Derby775_07_18.ck2");
     ck2::SaveFile save(file);
@@ -66,6 +66,6 @@ void Parser::test_characterSpouse()
     ck2::Character player2 = save.getCharacter(190329);
     QCOMPARE(player.spouse()->name(), player2.name());
 }
-QTEST_APPLESS_MAIN(Parser)
+QTEST_APPLESS_MAIN(ParserTest)
 
 #include "tst_parser.moc"
