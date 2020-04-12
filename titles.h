@@ -11,7 +11,6 @@ namespace ck2
 struct Title : public Entity
 {
     friend class ParsedData;
-
     std::string succession();
     std::string gender();
     unsigned int holderID();

@@ -12,7 +12,8 @@ SOURCES +=  tst_parser.cpp \
     parser.cpp \
     entity.cpp \
     dynasties.cpp \
-    titles.cpp
+    titles.cpp \
+    characters.cpp
 
 HEADERS += \
     abstracts.h \
@@ -20,10 +21,10 @@ HEADERS += \
     texttools.h \
     datafile.h \
     parser.h \
-    traits.h \
     entity.h \
     dynasties.h \
-    titles.h
+    titles.h \
+    characters.h
 
 DISTFILES += \
     traits.csv
