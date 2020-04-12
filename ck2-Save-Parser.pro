@@ -7,12 +7,14 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  tst_parser.cpp \
-    texttools.cpp
+    texttools.cpp \
+    datafile.cpp
 
 HEADERS += \
     abstracts.h \
     ortner.h \
-    texttools.h
+    texttools.h \
+    datafile.h
 
 DISTFILES += \
     traits.csv

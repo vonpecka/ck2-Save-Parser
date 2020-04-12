@@ -12,48 +12,11 @@
     #include <iostream>
     #include <abstracts.h>
     #include <texttools.h>
+    #include <datafile.h>
 #endif
 
 namespace ck2
 {
-	// 
-	// File object for reading files at a given directory
-	//
-    class SavedGame
-	{
-		// Stores each line
-		std::vector<std::string> data;
-
-		// Key Characters to strip out of each line
-		std::vector<char> key_chars = {
-			' ', '\t'
-		};
-
-	public:
-        SavedGame(const char* directory)
-		{
-			std::fstream stream(directory, std::ios::in);
-
-			if (!stream)
-				throw std::runtime_error(std::string("Cannot open file ") + directory);
-
-			for (std::string line; std::getline(stream, line);)
-			{
-				for (int c = 0; c < key_chars.size(); c++)
-					line = strip(line, key_chars.at(c));
-
-				data.push_back(line);
-			}
-
-			stream.close();
-		}
-
-		std::vector<std::string> &getData()
-		{
-			return data;
-		}
-	};
-
 	//
 	// Base class of functions for parsing data
 	//
@@ -143,12 +106,12 @@ namespace ck2
 	//
 	// Object that handles Traits csv
 	//
-    class TraitCSV : public SavedGame
+    class TraitCSV : public DataFile
 	{
 
 	public:
 		TraitCSV(std::string dir) :
-            SavedGame(dir.c_str())
+            DataFile(dir.c_str())
 		{
 			if (getData().size() == 0)
 				throw std::runtime_error("traits.csv not found!");
@@ -505,7 +468,7 @@ namespace ck2
 	//
     class ParsedData : Parser
 	{
-        SavedGame &file;
+        DataFile &file;
 		Dictionary<int, Character> characters;
 		Dictionary<int, Dynasty>   dynasties;
 		
@@ -695,7 +658,7 @@ namespace ck2
 
 	public:
 		// Initialize variables and parse the data
-        ParsedData(SavedGame f) :
+        ParsedData(DataFile f) :
 			file(f), key_lines(AMOUNT)
 		{
 			parse();
