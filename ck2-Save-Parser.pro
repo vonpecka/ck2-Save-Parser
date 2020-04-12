@@ -6,17 +6,33 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  tst_parser.cpp
+SOURCES +=  tst_parser.cpp \
+    texttools.cpp \
+    datafile.cpp \
+    parser.cpp \
+    entity.cpp \
+    dynasties.cpp \
+    titles.cpp \
+    characters.cpp \
+    parseddata.cpp
 
 HEADERS += \
-    ck2Parser.h
+    abstracts.h \
+    texttools.h \
+    datafile.h \
+    parser.h \
+    entity.h \
+    dynasties.h \
+    titles.h \
+    characters.h \
+    parseddata.h
 
 DISTFILES += \
     traits.csv
 
 
 # custom added code to copy some files to the directory for building
-copydata.commands = $(COPY_DIR) $$PWD/*.ck2 $$PWD/*.csv $$OUT_PWD
+copydata.commands = $(COPY_DIR) $$PWD/*.ck2 $$OUT_PWD
 first.depends = $(first) copydata
 export(first.depends)
 export(copydata.commands)

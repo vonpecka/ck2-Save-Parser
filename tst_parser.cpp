@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <ck2Parser.h>
+#include <parseddata.h>
 
 class ParserTest : public QObject
 {
@@ -29,8 +29,8 @@ ParserTest::~ParserTest()
 
 void ParserTest::test_characterName()
 {
-    ck2::File file("Derby775_07_18.ck2");
-    ck2::SaveFile save(file);
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
     ck2::Character player = save.getCharacter(504285);
     QCOMPARE(player.name(),std::string("Harthgate"));
 }
@@ -47,8 +47,8 @@ void ParserTest::test_structAttributes()
 
 void ParserTest::test_characterAttributes()
 {
-    ck2::File file("Derby775_07_18.ck2");
-    ck2::SaveFile save(file);
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
     ck2::Character player = save.getCharacter(502726);
     ck2::Attributes attrib("2 1 1 7 4");
     QCOMPARE(attrib.diplomacy(), player.attributes().diplomacy());
@@ -60,8 +60,8 @@ void ParserTest::test_characterAttributes()
 
 void ParserTest::test_characterSpouse()
 {
-    ck2::File file("Derby775_07_18.ck2");
-    ck2::SaveFile save(file);
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
     ck2::Character player = save.getCharacter(504306);
     ck2::Character player2 = save.getCharacter(190329);
     QCOMPARE(player.spouse()->name(), player2.name());
