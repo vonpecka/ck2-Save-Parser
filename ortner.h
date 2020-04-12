@@ -9,47 +9,13 @@
     #include <texttools.h>
     #include <datafile.h>
     #include <parser.h>
+    #include <traits.h>
 #endif
 
 namespace ck2
 {
-	//
-	// Object representing a trait
-	//
-	struct Trait
-	{
-		Trait(unsigned int i, std::string n) :
-			_name(n), _id(i)
-		{
-
-		}
-
-		std::string name() const { return _name; }
-		unsigned int id()  const { return _id; }
-
-	private:
-		std::string _name;
-		unsigned int _id;
-	};
-
-	//
-	// Object that handles Traits csv
-	//
-    class TraitCSV : public DataFile
-	{
-
-	public:
-		TraitCSV(std::string dir) :
-            DataFile(dir.c_str())
-		{
-			if (getData().size() == 0)
-				throw std::runtime_error("traits.csv not found!");
-		}
-	};
-
-	TraitCSV traitCSV("traits.csv");
-
-	struct Attributes : Parser
+    TraitCSV traitCSV("traits.csv");
+    struct Attributes : Parser
 	{
 		Attributes(std::string line)
 		{
@@ -266,38 +232,37 @@ namespace ck2
 			return nickname;
 		}
 
-		std::vector<Trait> traits()
-		{
-			std::vector<Trait> r;
+        std::vector<Trait> traits()
+        {
+            std::vector<Trait> r;
 
-			// Clean up the string from the dictionary
-			std::string str_traits; 
-			str_traits = remove(getStringfromDict("traits"), '}');
-			str_traits = remove(str_traits, '{');
-			str_traits = strip(str_traits, ' ');
+            // Clean up the string from the dictionary
+            std::string str_traits;
+            str_traits = remove(getStringfromDict("traits"), '}');
+            str_traits = remove(str_traits, '{');
+            str_traits = strip(str_traits, ' ');
 
-			// Delimit the string with spaces
-			std::vector<std::string> ts = split(str_traits, ' ');
+            // Delimit the string with spaces
+            std::vector<std::string> ts = split(str_traits, ' ');
 
-			// Clean up each object
-			for (std::string &str : ts)
-				str = strip(str, ' ');
+            // Clean up each object
+            for (std::string &str : ts)
+                str = strip(str, ' ');
 
-			// Go through each line of the csv
-			for (int t = 0; t < traitCSV.getData().size(); t++)
-				for (int i = 0; i < ts.size(); i++)
-				{
-					auto trait = getProperty(traitCSV.getData().at(t), ',');
-					if (trait.second == ts.at(i))
-					{
-						r.push_back(Trait(std::stoi(trait.second), trait.first));
-						continue;
-					}
-				}
+            // Go through each line of the csv
+            for (int t = 0; t < traitCSV.getData().size(); t++)
+                for (int i = 0; i < ts.size(); i++)
+                {
+                    auto trait = getProperty(traitCSV.getData().at(t), ',');
+                    if (trait.second == ts.at(i))
+                    {
+                        r.push_back(Trait(std::stoi(trait.second), trait.first));
+                        continue;
+                    }
+                }
 
-			return r;
-		}
-
+            return r;
+        }
 		Attributes attributes()
 		{
 			return Attributes(*dictionary.at("att"));
