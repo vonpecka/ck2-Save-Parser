@@ -10,6 +10,7 @@
     #include <datafile.h>
     #include <parser.h>
     #include <traits.h>
+    #include <entity.h>
 #endif
 
 namespace ck2
@@ -74,34 +75,6 @@ namespace ck2
 				unsigned int _dip, _mart, _stew, _int, _learn;
 			};
 		};
-	};
-
-	struct Entity : Parser
-	{
-		unsigned int ID;
-
-		Dictionary<std::string, std::string> dictionary;
-
-	protected:
-		std::string getStringfromDict(std::string key)
-		{
-			if (!dictionary.at(key)) return std::string("");
-			return remove(*dictionary.at(key), '"');
-		}
-
-		float getFloatFromDict(std::string key)
-		{
-			if (!dictionary.at(key)) return -1.f;
-			return std::stof(*dictionary.at(key));
-		}
-
-		void parseData(std::vector<Pair<int, std::string>> data)
-		{
-			for (Pair<int, std::string> line : data) {
-				StringPair property = getProperty(line.second);
-				dictionary.push(property);
-			}
-		}
 	};
 
 	//
