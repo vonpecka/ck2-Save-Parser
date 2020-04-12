@@ -9,8 +9,7 @@ TEMPLATE = app
 SOURCES +=  tst_parser.cpp \
     texttools.cpp \
     datafile.cpp \
-    parser.cpp \
-    traits.cpp
+    parser.cpp
 
 HEADERS += \
     abstracts.h \

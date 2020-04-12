@@ -34,8 +34,7 @@ class TraitCSV : public DataFile
 {
 
 public:
-    TraitCSV(std::string dir) :
-        DataFile(dir.c_str())
+    TraitCSV(std::string dir) : DataFile(dir.c_str())
     {
         if (getData().size() == 0)
             throw std::runtime_error("traits.csv not found!");
