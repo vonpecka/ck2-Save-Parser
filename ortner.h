@@ -19,7 +19,7 @@ namespace ck2
 	// 
 	// File object for reading files at a given directory
 	//
-	class File
+    class SavedGame
 	{
 		// Stores each line
 		std::vector<std::string> data;
@@ -30,7 +30,7 @@ namespace ck2
 		};
 
 	public:
-		File(const char* directory)
+        SavedGame(const char* directory)
 		{
 			std::fstream stream(directory, std::ios::in);
 
@@ -143,12 +143,12 @@ namespace ck2
 	//
 	// Object that handles Traits csv
 	//
-	class TraitCSV : public File
+    class TraitCSV : public SavedGame
 	{
 
 	public:
 		TraitCSV(std::string dir) :
-			File(dir.c_str())
+            SavedGame(dir.c_str())
 		{
 			if (getData().size() == 0)
 				throw std::runtime_error("traits.csv not found!");
@@ -251,7 +251,7 @@ namespace ck2
 	//
 	struct Title : public Entity
 	{
-		friend class SaveFile;
+        friend class ParsedData;
 
 		std::string succession()
 		{
@@ -274,7 +274,7 @@ namespace ck2
 	//
 	struct Dynasty : public Entity
 	{
-		friend class SaveFile;
+        friend class ParsedData;
 
 		std::string name()
 		{
@@ -297,7 +297,7 @@ namespace ck2
 	//
 	struct Character : public Entity
 	{
-		friend class SaveFile;
+        friend class ParsedData;
 
 		// Functions for getting data
 		std::string name()
@@ -503,9 +503,9 @@ namespace ck2
 	//
 	// Object that creates all data for the save file
 	//
-	class SaveFile : Parser
+    class ParsedData : Parser
 	{
-		File &file;
+        SavedGame &file;
 		Dictionary<int, Character> characters;
 		Dictionary<int, Dynasty>   dynasties;
 		
@@ -695,7 +695,7 @@ namespace ck2
 
 	public:
 		// Initialize variables and parse the data
-		SaveFile(File f) :
+        ParsedData(SavedGame f) :
 			file(f), key_lines(AMOUNT)
 		{
 			parse();
