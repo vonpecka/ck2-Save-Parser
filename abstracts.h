@@ -1,3 +1,6 @@
+#include <vector>
+#include <string>
+
 #ifndef ABSTRACTS_H
 #define ABSTRACTS_H
 namespace ck2
@@ -53,6 +56,7 @@ protected:
     std::vector< Pair<F, S> > data;
 };
 
+typedef Pair<std::string, std::string> StringPair;
 
 
 }
