@@ -12,25 +12,11 @@ struct Entity : Parser
     Dictionary<std::string, std::string> dictionary;
 
 protected:
-    std::string getStringfromDict(std::string key)
-    {
-        if (!dictionary.at(key)) return std::string("");
-        return remove(*dictionary.at(key), '"');
-    }
+    std::string getStringfromDict(std::string key);
 
-    float getFloatFromDict(std::string key)
-    {
-        if (!dictionary.at(key)) return -1.f;
-        return std::stof(*dictionary.at(key));
-    }
+    float getFloatFromDict(std::string key);
 
-    void parseData(std::vector<Pair<int, std::string>> data)
-    {
-        for (Pair<int, std::string> line : data) {
-            StringPair property = getProperty(line.second);
-            dictionary.push(property);
-        }
-    }
+    void parseData(std::vector<Pair<int, std::string>> data);
 };
 }
 
