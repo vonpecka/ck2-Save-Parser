@@ -11,6 +11,7 @@
     #include <parser.h>
     #include <traits.h>
     #include <entity.h>
+    #include <dynasties.h>
 #endif
 
 namespace ck2
@@ -75,52 +76,6 @@ namespace ck2
 				unsigned int _dip, _mart, _stew, _int, _learn;
 			};
 		};
-	};
-
-	//
-	// Object representing a Title
-	//
-	struct Title : public Entity
-	{
-        friend class ParsedData;
-
-		std::string succession()
-		{
-			return getStringfromDict("succession");
-		}
-
-		std::string gender()
-		{
-			return getStringfromDict("gender");
-		}
-
-		unsigned int holderID()
-		{
-			return (int)getFloatFromDict("holder");
-		}
-	};
-
-	//
-	// Object representing a Dynasty
-	//
-	struct Dynasty : public Entity
-	{
-        friend class ParsedData;
-
-		std::string name()
-		{
-			return getStringfromDict("name");
-		}
-
-		std::string culture()
-		{
-			return getStringfromDict("culture");
-		}
-
-		std::string religion()
-		{
-			return getStringfromDict("religion");
-		}
 	};
 
 	//
