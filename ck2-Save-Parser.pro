@@ -31,7 +31,7 @@ DISTFILES += \
 
 
 # custom added code to copy some files to the directory for building
-copydata.commands = $(COPY_DIR) $$PWD/*.ck2 $$PWD/*.csv $$OUT_PWD
+copydata.commands = $(COPY_DIR) $$PWD/*.ck2 $$OUT_PWD
 first.depends = $(first) copydata
 export(first.depends)
 export(copydata.commands)
