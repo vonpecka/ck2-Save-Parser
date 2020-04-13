@@ -8,6 +8,7 @@ namespace ck2
         extractDynasties();
         extractCharacters();
         extractLandedTitles();
+        extractProvinces();
     }
 
 
@@ -269,6 +270,49 @@ namespace ck2
 
     }
 
+    void ParsedData::extractProvinces()
+    {
+        //Parse Province
+        std::vector<Pair<int, std::string>> data;
+        int lastID = -1;
+        int level = 1;
+        for (int i = key_lines.at(PROVINCES) + 2; level > 0; i++)
+        {
+            std::string line(file.getData().at(i));
+
+            // Check if the province is done
+            if (line.length() > 1 && line.at(line.length() - 1) == '=' && level == 1)
+            {
+                // If its the first province, you've got to pass the ID
+                if (lastID == -1)
+                    lastID = std::stoi(std::string(line.begin(), line.begin() + line.length() - 1));
+
+                // If there is no data for some reason, dont add an object
+                if (data.size() == 0) continue;
+
+                Province* province = new Province;
+                province->ID = lastID;
+                province->parseData(data);
+                provinces.push(Pair<int, Province>(province->ID, *province));
+
+                // Clear the data for the next province
+                data.clear();
+
+                // Begin ID for the next province
+                lastID = std::stoi(std::string(line.begin(), line.begin() + line.length() - 1));
+
+                continue;
+            }
+
+            // If the dynasty continues, determine whether or not to increment
+            // or decrement the current level
+            if (contains(line, '{')) level++;
+            if (contains(line, '}')) level--;
+
+            // Push the current line to the data
+            data.push_back(Pair<int, std::string>(level, line));
+        }
+    }
 
 
 }

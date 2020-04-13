@@ -64,6 +64,7 @@ namespace ck2
         void extractDynasties();
         void extractCharacters();
         void extractLandedTitles();
+        void extractProvinces();
     };
 }
 
