@@ -4,6 +4,7 @@
 #include <entity.h>
 #include <dynasties.h>
 #include <characters.h>
+#include <titles.h>
 
 #ifndef PARSEDDATA_H
 #define PARSEDDATA_H
@@ -19,6 +20,7 @@ namespace ck2
         DataFile &file;
         Dictionary<int, Character> characters;
         Dictionary<int, Dynasty>   dynasties;
+        Dictionary<std::string, Title> titles;
 
         //Dictionary<int, std::vector<Title>> titles;
 
@@ -49,6 +51,7 @@ namespace ck2
 
         // Get a character from an ID
         Character &getCharacter(unsigned int ID);
+        Title &getLandedTitle(std::string);
 
     private:
         void analyzePositions();

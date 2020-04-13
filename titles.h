@@ -13,6 +13,7 @@ struct Title : public Entity
     friend class ParsedData;
     std::string succession();
     std::string gender();
+    std::string liege();
     unsigned int holderID();
 };
 

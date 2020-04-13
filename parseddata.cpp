@@ -22,6 +22,13 @@ namespace ck2
         return *characters.at(ID);
     }
 
+    // Get a landed title from an ID
+    Title &ParsedData::getLandedTitle(std::string ID)
+    {
+//        Title *test = new Title();
+//        return *test;
+        return *titles.at(ID);
+    }
 
     void ParsedData::analyzePositions()
     {
@@ -45,6 +52,7 @@ namespace ck2
                 key_lines.at(PROVINCES) = l;
             }
 
+            // it starts on line 883 986 in the test file Derby775_07_18.ck2
             if (line == "title=" && key_lines.at(DYNASTY) != 0 && key_lines.at(CHARACTERS) != 0 && key_lines.at(PROVINCES) != 0 && key_lines.at(TITLE) == 0)
             {
                 key_lines.at(TITLE) = l;
