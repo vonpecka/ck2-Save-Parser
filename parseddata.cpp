@@ -23,6 +23,12 @@ namespace ck2
         return *characters.at(ID);
     }
 
+    // Get a province from an ID
+    Province &ParsedData::getProvince(unsigned int ID)
+    {
+        return *provinces.at(ID);
+    }
+
     // Get a landed title from an ID
     Title &ParsedData::getLandedTitle(std::string abbr)
     {

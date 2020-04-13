@@ -22,7 +22,8 @@ private slots:
     void test_landedTitleGender();
     void test_savedDate();
     void test_version();
-
+    void test_provinceCulture();
+    void test_provinceReligion();
 };
 
 ParserTest::ParserTest()
@@ -120,6 +121,23 @@ void ParserTest::test_version()
     ck2::DataFile file("Derby775_07_18.ck2");
     ck2::Metadata meta(file);
     QCOMPARE(meta.getVersion(), std::string("2.7.1.0"));
+}
+
+void ParserTest::test_provinceCulture()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Province province = save.getProvince(6);
+    QCOMPARE(province.culture(), std::string("norse"));
+
+}
+
+void ParserTest::test_provinceReligion()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Province province = save.getProvince(6);
+    QCOMPARE(province.religion(), std::string("norse_pagan"));
 }
 
 QTEST_APPLESS_MAIN(ParserTest)
