@@ -1,6 +1,7 @@
 #include <QtTest>
 #include <parseddata.h>
 #include <titles.h>
+#include <metadata.h>
 
 class ParserTest : public QObject
 {
@@ -19,6 +20,9 @@ private slots:
     void test_landedTitleLiege();
     void test_landedTitleSuccesion();
     void test_landedTitleGender();
+    void test_savedDate();
+    void test_version();
+
 };
 
 ParserTest::ParserTest()
@@ -101,6 +105,21 @@ void ParserTest::test_landedTitleGender()
     ck2::ParsedData save(file);
     ck2::Title title = save.getLandedTitle("d_gelre");
     QCOMPARE(title.gender(), std::string("agnatic"));
+}
+
+void ParserTest::test_savedDate()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::Metadata meta(file);
+    QCOMPARE(meta.getSavedDate(), std::string("775.7.18"));
+}
+
+
+void ParserTest::test_version()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::Metadata meta(file);
+    QCOMPARE(meta.getVersion(), std::string("2.7.1.0"));
 }
 
 QTEST_APPLESS_MAIN(ParserTest)

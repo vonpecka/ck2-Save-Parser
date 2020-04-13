@@ -44,6 +44,7 @@ namespace ck2
         ParsedData(DataFile f) :
             file(f), key_lines(AMOUNT)
         {
+
             parse();
         }
 
@@ -53,6 +54,7 @@ namespace ck2
         // Get a character from an ID
         Character &getCharacter(unsigned int ID);
         Title &getLandedTitle(std::string);
+        std::string getSaveDate();
 
     private:
         void analyzePositions();
