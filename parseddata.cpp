@@ -210,14 +210,55 @@ namespace ck2
     {
         //Parse landed titles
 
-        // Code to create mock object
+        /*// Code to create mock object
         ck2::Title* d_gelre = new ck2::Title();
         d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("holder"), std::string("6392")));
         d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("liege"), std::string("k_france")));
         d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("succession"), std::string("gavelkind")));
         d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("gender"), std::string("agnatic")));
-        titles.push(ck2::Pair<std::string, ck2::Title>(std::string("d_gelre"), *d_gelre));
+        titles.push(ck2::Pair<std::string, ck2::Title>(std::string("d_gelre"), *d_gelre));*/
 
+        std::vector<Pair<int, std::string>> data;
+        int lastID = 1;
+        int level = 1;
+        std::string abbr = "";
+        for (int i = key_lines.at(TITLE) + 2; level > 0; i++)
+        {
+            std::string line(file.getData().at(i));
+
+            // Check if the title is done
+            if (line.length() > 1 && line.at(line.length() - 1) == '=' && level == 1)
+            {
+                // If its the first title, you've got to pass the ID
+                if (lastID == 1)
+                    abbr = std::string(line.begin(), line.begin() + line.length() - 1);
+
+                // If there is no data for some reason, dont add an object
+                if (data.size() == 0) continue;
+
+                Title* title = new Title;
+                title->ID = lastID;
+                title->parseData(data);
+                titles.push(Pair<std::string, Title>(abbr, *title));
+
+                lastID++;
+                // Clear the data for the next title
+                data.clear();
+
+                // Begin ID for the next character
+                abbr = std::string(line.begin(), line.begin() + line.length() - 1);
+
+                continue;
+            }
+
+            // If the title continues, determine whether or not to increment
+            // or decrement the current level
+            if (contains(line, '{')) level++;
+            if (contains(line, '}')) level--;
+
+            // Push the current line to the data
+            data.push_back(Pair<int, std::string>(level, line));
+        }
 
 
     }
