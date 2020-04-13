@@ -7,6 +7,7 @@ namespace ck2
         analyzePositions();
         extractDynasties();
         extractCharacters();
+        extractLandedTitles();
     }
 
 
@@ -23,11 +24,9 @@ namespace ck2
     }
 
     // Get a landed title from an ID
-    Title &ParsedData::getLandedTitle(std::string ID)
+    Title &ParsedData::getLandedTitle(std::string abbr)
     {
-//        Title *test = new Title();
-//        return *test;
-        return *titles.at(ID);
+        return *titles.at(abbr);
     }
 
     void ParsedData::analyzePositions()
@@ -206,5 +205,23 @@ namespace ck2
         }
 
     }
+
+    void ParsedData::extractLandedTitles()
+    {
+        //Parse landed titles
+
+        // Code to create mock object
+        ck2::Title* d_gelre = new ck2::Title();
+        d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("holder"), std::string("6392")));
+        d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("liege"), std::string("k_france")));
+        d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("succession"), std::string("gavelkind")));
+        d_gelre->dictionary.push(ck2::Pair<std::string, std::string>(std::string("gender"), std::string("agnatic")));
+        titles.push(ck2::Pair<std::string, ck2::Title>(std::string("d_gelre"), *d_gelre));
+
+
+
+    }
+
+
 
 }

@@ -17,6 +17,7 @@ namespace ck2
     //
     class ParsedData : Parser
     {
+
         DataFile &file;
         Dictionary<int, Character> characters;
         Dictionary<int, Dynasty>   dynasties;
@@ -57,7 +58,7 @@ namespace ck2
         void analyzePositions();
         void extractDynasties();
         void extractCharacters();
-
+        void extractLandedTitles();
     };
 }
 

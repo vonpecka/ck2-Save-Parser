@@ -1,5 +1,6 @@
 #include <QtTest>
 #include <parseddata.h>
+#include <titles.h>
 
 class ParserTest : public QObject
 {
@@ -101,7 +102,6 @@ void ParserTest::test_landedTitleGender()
     ck2::Title title = save.getLandedTitle("d_gelre");
     QCOMPARE(title.gender(), std::string("agnatic"));
 }
-
 
 QTEST_APPLESS_MAIN(ParserTest)
 
