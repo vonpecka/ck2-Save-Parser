@@ -1,5 +1,7 @@
 #include <QtTest>
 #include <parseddata.h>
+#include <titles.h>
+#include <metadata.h>
 
 class ParserTest : public QObject
 {
@@ -14,7 +16,14 @@ private slots:
     void test_structAttributes();
     void test_characterAttributes();
     void test_characterSpouse();
-
+    void test_landedTitle();
+    void test_landedTitleLiege();
+    void test_landedTitleSuccesion();
+    void test_landedTitleGender();
+    void test_savedDate();
+    void test_version();
+    void test_provinceCulture();
+    void test_provinceReligion();
 };
 
 ParserTest::ParserTest()
@@ -66,6 +75,71 @@ void ParserTest::test_characterSpouse()
     ck2::Character player2 = save.getCharacter(190329);
     QCOMPARE(player.spouse()->name(), player2.name());
 }
+
+void ParserTest::test_landedTitle()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Title title = save.getLandedTitle("d_gelre");
+    QCOMPARE(int(title.holderID()), 6392);
+}
+
+void ParserTest::test_landedTitleLiege()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Title title = save.getLandedTitle("d_gelre");
+    QCOMPARE(title.liege(), std::string("k_france"));
+}
+
+void ParserTest::test_landedTitleSuccesion()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Title title = save.getLandedTitle("d_gelre");
+    QCOMPARE(title.succession(), std::string("gavelkind"));
+}
+
+void ParserTest::test_landedTitleGender()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Title title = save.getLandedTitle("d_gelre");
+    QCOMPARE(title.gender(), std::string("agnatic"));
+}
+
+void ParserTest::test_savedDate()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::Metadata meta(file);
+    QCOMPARE(meta.getSavedDate(), std::string("775.7.18"));
+}
+
+
+void ParserTest::test_version()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::Metadata meta(file);
+    QCOMPARE(meta.getVersion(), std::string("2.7.1.0"));
+}
+
+void ParserTest::test_provinceCulture()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Province province = save.getProvince(6);
+    QCOMPARE(province.culture(), std::string("norse"));
+
+}
+
+void ParserTest::test_provinceReligion()
+{
+    ck2::DataFile file("Derby775_07_18.ck2");
+    ck2::ParsedData save(file);
+    ck2::Province province = save.getProvince(6);
+    QCOMPARE(province.religion(), std::string("norse_pagan"));
+}
+
 QTEST_APPLESS_MAIN(ParserTest)
 
 #include "tst_parser.moc"

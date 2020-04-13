@@ -4,6 +4,8 @@
 #include <entity.h>
 #include <dynasties.h>
 #include <characters.h>
+#include <titles.h>
+#include <province.h>
 
 #ifndef PARSEDDATA_H
 #define PARSEDDATA_H
@@ -16,9 +18,12 @@ namespace ck2
     //
     class ParsedData : Parser
     {
+
         DataFile &file;
         Dictionary<int, Character> characters;
         Dictionary<int, Dynasty>   dynasties;
+        Dictionary<std::string, Title> titles;
+        Dictionary<int, Province> provinces;
 
         //Dictionary<int, std::vector<Title>> titles;
 
@@ -27,7 +32,7 @@ namespace ck2
         typedef enum {
             DYNASTY,
             CHARACTERS,
-            PROVINCES,
+            PROVINCES,  // it starts on line 807896 in the test file Derby775_07_18.ck2
             TITLE,
             AMOUNT
         } LINES;
@@ -41,6 +46,7 @@ namespace ck2
         ParsedData(DataFile f) :
             file(f), key_lines(AMOUNT)
         {
+
             parse();
         }
 
@@ -49,12 +55,16 @@ namespace ck2
 
         // Get a character from an ID
         Character &getCharacter(unsigned int ID);
+        Title &getLandedTitle(std::string);
+        Province &getProvince(unsigned int ID);
+        std::string getSaveDate();
 
     private:
         void analyzePositions();
         void extractDynasties();
         void extractCharacters();
-
+        void extractLandedTitles();
+        void extractProvinces();
     };
 }
 
