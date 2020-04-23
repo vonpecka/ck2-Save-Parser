@@ -47,10 +47,16 @@ struct Dictionary
         data.push_back(val);
     }
 
+    virtual Pair<F, S> number(int i)
+    {
+        return data.at(i);
+    }
+
     virtual unsigned int size() const
     {
         return data.size();
-    }
+    }    
+
 
 protected:
     std::vector< Pair<F, S> > data;

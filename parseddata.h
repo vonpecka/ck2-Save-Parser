@@ -58,6 +58,7 @@ namespace ck2
         Title &getLandedTitle(std::string);
         Province &getProvince(unsigned int ID);
         std::string getSaveDate();
+        Dictionary<std::string, Title> getTitlesList();
 
     private:
         void analyzePositions();

@@ -314,5 +314,8 @@ namespace ck2
         }
     }
 
-
+    Dictionary<std::string, Title> ParsedData::getTitlesList()
+    {
+        return titles;
+    }
 }
