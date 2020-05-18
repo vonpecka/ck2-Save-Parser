@@ -16,7 +16,8 @@ SOURCES +=  tst_parser.cpp \
     characters.cpp \
     parseddata.cpp \
     metadata.cpp \
-    province.cpp
+    province.cpp \
+    landedtitleparser.cpp
 
 HEADERS += \
     abstracts.h \
@@ -29,7 +30,8 @@ HEADERS += \
     characters.h \
     parseddata.h \
     metadata.h \
-    province.h
+    province.h \
+    landedtitleparser.h
 
 DISTFILES += \
     traits.csv

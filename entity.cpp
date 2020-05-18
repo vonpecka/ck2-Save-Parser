@@ -17,9 +17,33 @@ namespace ck2
 
     void Entity::parseData(std::vector<Pair<int, std::string>> data)
     {
+        int level = 0;
+        std::vector<Pair<int, std::string>> subentityData;
+        std::string subentityName;
+
         for (Pair<int, std::string> line : data) {
-            StringPair property = getProperty(line.second);
-            dictionary.push(property);
+            if (contains(line.second, '{')) {
+                if (level==1) {
+                    subentityName = getProperty(line.second).first;
+                }
+                level++;
+            }
+            if (level==1) {
+                StringPair property = getProperty(line.second);
+                dictionary.push(property);
+            }
+            if (level>1) {
+                subentityData.push_back(line);
+            }
+            if (contains(line.second, '}')) {
+                level--;
+                if (level==1) {
+                    Entity* subentity = new Entity;
+                    subentity->parseData(subentityData);
+                    subentityData.clear();
+                    lowerEntities.push(Pair<std::string, Entity>(subentityName, *subentity));
+                }
+            }
         }
     }
 }
