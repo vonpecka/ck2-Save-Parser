@@ -11,12 +11,17 @@ struct Entity : Parser
 
     Dictionary<std::string, std::string> dictionary;
 
+
+    Dictionary<std::string, Entity> lowerEntities;
+
 protected:
     std::string getStringfromDict(std::string key);
 
     float getFloatFromDict(std::string key);
 
     void parseData(std::vector<Pair<int, std::string>> data);
+
+
 };
 }
 
