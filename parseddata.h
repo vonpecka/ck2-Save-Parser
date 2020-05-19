@@ -42,6 +42,7 @@ namespace ck2
         void parse();
 
     public:
+        int numberProvinces = 2014;
         // Initialize variables and parse the data
         ParsedData(DataFile f) :
             file(f), key_lines(AMOUNT)

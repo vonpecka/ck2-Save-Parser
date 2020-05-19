@@ -1,5 +1,7 @@
 #include "parseddata.h"
 
+#include <QDebug>
+
 namespace ck2
 {
     void ParsedData::parse()
@@ -27,7 +29,13 @@ namespace ck2
     // Get a province from an ID
     Province &ParsedData::getProvince(unsigned int ID)
     {
-        return *provinces.at(ID);
+        Province *returnPointer = provinces.at(ID);
+        if (returnPointer != nullptr) {
+            return *provinces.at(ID);
+        }
+        else {
+            return *(provinces.at(0));
+        }
     }
 
     // Get a landed title from an ID
@@ -294,7 +302,6 @@ namespace ck2
                 province->ID = lastID;
                 province->parseData(data);
                 provinces.push(Pair<int, Province>(province->ID, *province));
-
                 // Clear the data for the next province
                 data.clear();
 
@@ -312,6 +319,9 @@ namespace ck2
             // Push the current line to the data
             data.push_back(Pair<int, std::string>(level, line));
         }
+        Province* province = new Province;
+        province->ID = 0;
+        provinces.push(Pair<int, Province>(0, *province));
     }
 
     Dictionary<std::string, Title> ParsedData::getTitlesList()
